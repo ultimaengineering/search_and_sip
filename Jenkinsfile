@@ -17,9 +17,9 @@ pipeline {
       steps {
         checkout scm
         container('rust') {
-          withCredentials([string(credentialsId: 'coveralls_stock_analyzer', variable: 'coveralls_stock_analyzer')]) {
+          withCredentials([string(credentialsId: 'coveralls_search_and_sip', variable: 'coveralls_search_and_sip')]) {
             sh 'cargo test'
-            sh 'cargo tarpaulin --coveralls ${coveralls_stock_analyzer}'
+            sh 'cargo tarpaulin --coveralls ${coveralls_search_and_sip}'
           }
         }
       }
