@@ -38,7 +38,7 @@ pipeline {
           sh 'cp /workspace/opt/app/shared/search_and_sip  /workspace'
           sh 'cp /workspace/opt/app/shared/Dockerfile /workspace'
           sh 'ulimit -n 10000'
-          sh '/kaniko/executor -f Dockerfile --destination=docker.ultimaengineering.io/search_and_sip:${BRANCH_NAME}-${BUILD_NUMBER}'
+          sh '/kaniko/executor -f Dockerfile --destination=docker.ultimaengineering.io/search_and_sip:${BRANCH_NAME}-${BUILD_NUMBER} --destination=docker.ultimaengineering.io/search_and_sip:latest'
         }
       }
     }
