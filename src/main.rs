@@ -1,5 +1,6 @@
 use warp::{Filter, http};
 use warp::http::StatusCode;
+use futures::future;
 use crate::search::Search;
 
 pub mod search;
@@ -24,9 +25,12 @@ async fn main() {
     let routes = query.or(health);
 
 
-    warp::serve(routes)
+    let local = warp::serve(routes.clone())
+        .run(([127, 0, 0, 1], 8080));
+    let container = warp::serve(routes)
         .run(([0, 0, 0, 0], 8080))
         .await;
+    future::join(local, container).await;
 }
 
 async fn update(
