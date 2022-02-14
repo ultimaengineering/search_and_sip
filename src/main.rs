@@ -28,8 +28,7 @@ async fn main() {
     let local = warp::serve(routes.clone())
         .run(([127, 0, 0, 1], 8080));
     let container = warp::serve(routes)
-        .run(([0, 0, 0, 0], 8080))
-        .await;
+        .run(([0, 0, 0, 0], 8080));
     future::join(local, container).await;
 }
 
