@@ -24,11 +24,10 @@ async fn main() {
 
     let routes = query.or(health);
 
-
-    let local = warp::serve(routes.clone())
-        .run(([127, 0, 0, 1], 8080));
-    let container = warp::serve(routes)
-        .run(([0, 0, 0, 0], 8080));
+    let (_http_addr, local) = warp::serve(routes.clone())
+        .bind_ephemeral(([127, 0, 0, 1], 8080));
+    let (_https_addr, container) = warp::serve(routes)
+        .bind_ephemeral(([0, 0, 0, 0], 8080));
     future::join(local, container).await;
 }
 
