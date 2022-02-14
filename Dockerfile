@@ -3,7 +3,7 @@ RUN apt-get update
 RUN apt-get install musl-tools -y
 RUN /root/.cargo/bin/rustup target add x86_64-unknown-linux-musl
 WORKDIR /app
-copy ./src /app/src/
+COPY ./src /app/src/
 COPY ./Cargo.toml ./Cargo.toml
 COPY ./Cargo.lock ./Cargo.lock
 RUN /root/.cargo/bin/cargo build --target x86_64-unknown-linux-musl --release
